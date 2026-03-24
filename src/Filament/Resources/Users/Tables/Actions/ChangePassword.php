@@ -42,7 +42,7 @@ class ChangePassword extends Action
             ->action(static function ($record, $data) {
                 $auto = ! isset($data['password']);
                 $password = $data['password'] ?? Str::random(12);
-                $record->password = $password;
+                $record->password = Hash::make($password);
                 $record->save();
 
                 Notification::make()
