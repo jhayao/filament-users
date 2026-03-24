@@ -29,8 +29,7 @@ class ChangePassword extends Action
                     ->revealable(filament()->arePasswordsRevealable())
                     ->required(static fn ($record) => ! $record)
                     ->rule(\Illuminate\Validation\Rules\Password::default())
-                    ->dehydrated(filled(...))
-                    ->dehydrateStateUsing(Hash::make(...))
+                    ->dehydrated(fn ($state) => filled($state))
                     ->same('passwordConfirmation'),
                 Forms\Components\TextInput::make('passwordConfirmation')
                     ->label(trans('filament-users::user.resource.password_confirmation'))
