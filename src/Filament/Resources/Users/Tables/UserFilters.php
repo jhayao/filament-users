@@ -36,12 +36,14 @@ class UserFilters
                     continue;
                 }
 
+                self::$filters = array_filter(self::$filters, fn ($i) => $i->getName() !== $item->getName());
                 self::$filters[] = $item;
             }
 
             return;
         }
 
+        self::$filters = array_filter(self::$filters, fn ($i) => $i->getName() !== $action->getName());
         self::$filters[] = $action;
     }
 }

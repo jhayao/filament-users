@@ -43,12 +43,14 @@ class UserInfolist
                     continue;
                 }
 
+                self::$schema = array_filter(self::$schema, fn ($i) => $i->getName() !== $item->getName());
                 self::$schema[] = $item;
             }
 
             return;
         }
 
+        self::$schema = array_filter(self::$schema, fn ($i) => $i->getName() !== $component->getName());
         self::$schema[] = $component;
     }
 }

@@ -39,12 +39,14 @@ class UserBulkActions
                     continue;
                 }
 
+                self::$actions = array_filter(self::$actions, fn ($i) => $i->getName() !== $item->getName());
                 self::$actions[] = $item;
             }
 
             return;
         }
 
+        self::$actions = array_filter(self::$actions, fn ($i) => $i->getName() !== $action->getName());
         self::$actions[] = $action;
     }
 }

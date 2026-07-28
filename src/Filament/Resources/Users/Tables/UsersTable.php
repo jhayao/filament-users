@@ -51,12 +51,14 @@ class UsersTable
                     continue;
                 }
 
+                self::$columns = array_filter(self::$columns, fn ($i) => $i->getName() !== $item->getName());
                 self::$columns[] = $item;
             }
 
             return;
         }
 
+        self::$columns = array_filter(self::$columns, fn ($i) => $i->getName() !== $column->getName());
         self::$columns[] = $column;
     }
 }
