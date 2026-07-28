@@ -31,20 +31,22 @@ class UserActions
         return array_merge(self::getDefaultActions(), self::$actions);
     }
 
-    public static function register(\Filament\Actions\Action | array $action): void
+    public static function register(\Filament\Tables\Actions\Action | \Filament\Actions\Action | array $action): void
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if (! $item instanceof \Filament\Actions\Action) {
+                if (! $item instanceof \Filament\Tables\Actions\Action && ! $item instanceof \Filament\Actions\Action) {
                     continue;
                 }
 
+                self::$actions = array_filter(self::$actions, fn ($i) => $i->getName() !== $item->getName());
                 self::$actions[] = $item;
             }
 
             return;
         }
 
+        self::$actions = array_filter(self::$actions, fn ($i) => $i->getName() !== $action->getName());
         self::$actions[] = $action;
     }
 }
